@@ -6,7 +6,7 @@
 /*   By: kamsingh <kamsingh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 02:05:48 by kamsingh          #+#    #+#             */
-/*   Updated: 2024/04/24 09:57:00 by kamsingh         ###   ########.fr       */
+/*   Updated: 2024/05/01 00:23:02 by kamsingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct t_philo
 	int				lst_food;
 	int				counter;
 	int 			finished_dinner;
+	int 			one_dinner;
 
 }	t_philo;
 
@@ -80,8 +81,10 @@ void		initialize(t_philo *philo);
 void		ft_error();
 void		one_philo(t_philo *philo);
 // void		monitor_check(void *arg);
-int			dead_lock(t_philo *philo);
+int died_philo(t_philo *philo);
 void *monitor_check(void *arg);
 int			check_the_died_philo(t_philo *philo);
 void		only_philo(t_philo *philo);
+int    helper(t_philo *philo);
+int one_only(t_philo *philo);
 #endif
