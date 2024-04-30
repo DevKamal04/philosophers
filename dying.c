@@ -6,7 +6,7 @@
 /*   By: kamsingh <kamsingh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 02:24:04 by kamsingh          #+#    #+#             */
-/*   Updated: 2024/04/24 20:15:39 by kamsingh         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:10:41 by kamsingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,10 @@ void print_message(t_philo *philo, int i)
     pthread_mutex_unlock(philo->message);
 }
 
-
-int     philo_is_dead(t_philo *philo)
-{
-    pthread_mutex_lock(philo->meal_checks);
-    if (now() - philo->lst_food > philo->tot_life )
-        return ( pthread_mutex_unlock(philo->meal_checks), 1);
-    pthread_mutex_unlock(philo->meal_checks);
-    return (0);
-}
-
 int dead_lock(t_philo *philo)
 {
     pthread_mutex_lock(philo->dl_check);
-      if (*(philo->philo_die) == 1) 
+    if (*(philo->philo_die) == 1) 
     {
         pthread_mutex_unlock(philo->dl_check); 
         return(1);
@@ -61,27 +51,46 @@ int check_the_died_philo(t_philo *philo)
     i = 0;
     while (i < philo->data)
     {
-        if (philo_is_dead(philo))
+        pthread_mutex_lock(philo->meal_checks);
+        if (now() - philo[i].lst_food >= philo[i].tot_life && philo[i].finished_dinner == 1)
+            {
+                pthread_mutex_unlock(philo->meal_checks);
+                print_message(philo, 4);
+                pthread_mutex_lock(philo->dl_check);
+                *(philo->philo_die) = 1;
+                pthread_mutex_unlock(philo->dl_check);
+                return (1);
+            }
+        pthread_mutex_unlock(philo->meal_checks);
+        i++;
+        }
+    return (0);
+}
+
+int check_the_died_philo_with_eatingf(t_philo *philo)
+{
+    int i;
+    i = 0;
+    while (i < philo->data)
+    { 
+        pthread_mutex_lock(philo->meal_checks);
+        if (philo->times_to_eat == philo->times_eat)
         {
-            print_message(philo, 4);
-            // printf("%d\n", now() - philo->lst_food);
-            pthread_mutex_lock(philo->dl_check);
-            *(philo->philo_die) = 1;
-            pthread_mutex_unlock(philo->dl_check);
+            pthread_mutex_unlock(philo->meal_checks);            
             return (1);
         }
+        pthread_mutex_unlock(philo->meal_checks);   
         i++;
     }
     return (0);
 }
 
-
 void *monitor_check(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
     while (1)
-    {
-        if (check_the_died_philo(philo))
+    { 
+        if (check_the_died_philo(philo) || check_the_died_philo_with_eatingf(philo))
             break ;
     }
     return (arg);

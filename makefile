@@ -6,7 +6,7 @@
 #    By: kamsingh <kamsingh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 02:24:53 by kamsingh          #+#    #+#              #
-#    Updated: 2024/04/24 02:26:03 by kamsingh         ###   ########.fr        #
+#    Updated: 2024/04/30 11:49:08 by kamsingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ COLOUR_MAGENTA = \033[0;35m
 RESET_COLOR = \033[0m
 
 NAME := philo
-CFLAGS := -Wall -Wextra -Werror #-g -f
+CFLAGS := -Wall -Wextra -Werror 
 
 SRCS := main.c  utils.c ruotine.c ini.c dying.c
 OBJS := $(SRCS:.c=.o)

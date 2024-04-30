@@ -6,7 +6,7 @@
 /*   By: kamsingh <kamsingh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 02:06:26 by kamsingh          #+#    #+#             */
-/*   Updated: 2024/04/24 20:13:33 by kamsingh         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:09:50 by kamsingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void data_filosofi(char *av[], t_philo *philo,  t_dining *dining)
     philo->philo_sleep = ft_atoi(av[4]);
     if (av[5])
         philo->times_eat = ft_atoi(av[5]);
+    else 
+        philo->times_eat = -2;
 }
 
 void    data_all(t_philo *philo, t_dining *dining)
@@ -44,7 +46,7 @@ void    data_all(t_philo *philo, t_dining *dining)
         (&philo[i])->meal_checks = &dining->meal_checks;
         (&philo[i])->time = now();
         (&philo[i])->lst_food = now();
-        (&philo[i])->times_to_eat = philo->times_eat;
+        (&philo[i])->times_eat = philo->times_eat;
         (&philo[i])->philo_eat = philo->philo_eat;
         (&philo[i])->philo_sleep = philo->philo_sleep;
         (&philo[i])->tot_life = philo->tot_life;

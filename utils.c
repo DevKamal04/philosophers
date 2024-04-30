@@ -6,7 +6,7 @@
 /*   By: kamsingh <kamsingh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 23:29:20 by kamsingh          #+#    #+#             */
-/*   Updated: 2024/04/24 19:58:40 by kamsingh         ###   ########.fr       */
+/*   Updated: 2024/04/30 04:39:29 by kamsingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ size_t  get_time(size_t time)
     size_t  start;
     start = now();
     while ((now() - start) < time)
-        usleep(400);
+        usleep(200);
     return (0);
 }
 
