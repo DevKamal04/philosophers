@@ -25,6 +25,7 @@ Each program should have the following options: number_of_philosophers, time_to_
 
 Philosophers should avoid dying!
 
+![image](https://github.com/user-attachments/assets/61a337c6-52ff-4e8f-8005-a5013a86455e)
 
 
 
